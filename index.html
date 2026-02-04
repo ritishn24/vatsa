@@ -163,10 +163,7 @@ function openLetter() {
     document.getElementById("page1").style.display = "none";
     document.getElementById("page2").style.display = "block";
     
-    const audio = document.getElementById("music");
-    // This is the line that actually starts the sound
-    audio.play().catch(e => console.log("Playback blocked or file not found"));
-}
+   
     const audio = document.getElementById("music");
     // Play song at 90% volume
     audio.volume = 0.9;

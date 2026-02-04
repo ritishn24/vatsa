@@ -1,174 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Happy Valentine’s Day ❤️</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Happy Valentine’s Day ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-<style>
-  :root {
-    --pink-gradient: linear-gradient(135deg, #ff4d6d, #ff9aa2);
-    --glass: rgba(255, 255, 255, 0.25);
-    --hot-pink: #ff2f68;
-  }
+    <style>
+        :root {
+            --pink-gradient: linear-gradient(45deg, #ff4d6d, #ff758c, #ff9aa2);
+            --glass: rgba(255, 255, 255, 0.15);
+            --hot-pink: #ff2f68;
+            --soft-white: rgba(255, 255, 255, 0.9);
+        }
 
-  body {
-    margin: 0;
-    height: 100vh;
-    background: var(--pink-gradient);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Poppins', sans-serif;
-    overflow: hidden;
-  }
+        body {
+            margin: 0;
+            height: 100vh;
+            background: var(--pink-gradient);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
 
-  .card {
-    background: var(--glass);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-radius: 25px;
-    padding: 30px;
-    width: 85%;
-    max-width: 360px;
-    text-align: center;
-    color: white;
-    box-shadow: 0 15px 45px rgba(0,0,0,0.2);
-    border: 1px solid rgba(255,255,255,0.3);
-    position: relative;
-    z-index: 10;
-  }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-  .cat-img {
-    width: 160px;
-    border-radius: 15px;
-    margin-bottom: 15px;
-  }
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 40px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.4);
+            position: relative;
+            z-index: 10;
+            transition: all 0.5s ease;
+        }
 
-  h1 {
-    font-family: 'Dancing Script', cursive;
-    font-size: 2.2rem;
-    margin-bottom: 10px;
-  }
+        .cat-img {
+            width: 180px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
 
-  .btn-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-top: 20px;
-    min-height: 50px;
-  }
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
 
-  button {
-    background: var(--hot-pink);
-    border: none;
-    color: white;
-    padding: 12px 28px;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease;
-  }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+            position: relative;
+        }
 
-  #no-btn {
-    background: #f0f0f0;
-    color: #444;
-    position: relative;
-    transition: all 0.1s ease;
-  }
+        button {
+            background: var(--hot-pink);
+            border: none;
+            color: white;
+            padding: 14px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(255, 47, 104, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
 
-  .letter {
-    display: none;
-    line-height: 1.6;
-    animation: slideUp 0.8s ease;
-  }
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 20px rgba(255, 47, 104, 0.4);
+        }
 
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+        #no-btn {
+            background: var(--soft-white);
+            color: #444;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
 
-  .floating-bg span {
-    position: absolute;
-    bottom: -50px;
-    animation: float 7s linear infinite;
-    opacity: 0.6;
-    pointer-events: none;
-  }
+        .letter {
+            display: none;
+            line-height: 1.8;
+            animation: fadeIn 1s ease forwards;
+        }
 
-  @keyframes float {
-    0% { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(-120vh) rotate(360deg); }
-  }
-</style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .floating-bg span {
+            position: absolute;
+            bottom: -100px;
+            animation: float 8s linear infinite;
+            opacity: 0.5;
+            pointer-events: none;
+            font-size: 1.5rem;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.6; }
+            100% { transform: translateY(-130vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
 </head>
 <body>
 
 <div class="card" id="mainCard">
-  <div id="page1">
-    <img src="https://media.giphy.com/media/KmxmoHUGPDjfQXqGgv/giphy.gif" alt="Cute Cats" class="cat-img">
-    <h1>Vatsa, will you be my valentine?</h1>
-    
-    <div class="btn-container">
-      <button onclick="openLetter()">Yes 💖</button>
-      <button id="no-btn" onmouseover="moveButton()" onclick="moveButton()">No</button>
+    <div id="page1">
+        <img src="https://media.giphy.com/media/KmxmoHUGPDjfQXqGgv/giphy.gif" alt="Cute Cats" class="cat-img">
+        <h1>Vatsa, will you be my valentine?</h1>
+        
+        <div class="btn-container">
+            <button id="yes-btn" onclick="openLetter()">Yes 💖</button>
+            <button id="no-btn" onmouseover="moveButton()" onclick="moveButton()">No</button>
+        </div>
+        <p style="font-size: 0.85rem; margin-top: 20px; opacity: 0.9; font-style: italic;">
+            Select wisely! 😉
+        </p>
     </div>
-    <p style="font-size: 0.8rem; margin-top: 15px; opacity: 0.8;">"No" seems a bit shy 😈</p>
-  </div>
 
-  <div class="letter" id="page2">
-    <h1>Happy Valentine’s Day</h1>
-    <h2>Ritish 💕 Vatsa</h2>
-    <p>
-      Vatsa,<br><br>
-      You make my world brighter and my life more beautiful every single day 💕<br><br>
-      I’m grateful for you, for us, and for all the moments we share.<br><br>
-      Forever yours,<br>
-      <strong>Ritish ❤️</strong>
-    </p>
-    <button onclick="alert('Yay! Best Valentine ever! ❤️')">I love you! 💖</button>
-  </div>
+    <div class="letter" id="page2">
+        <h1>Happy Valentine’s Day</h1>
+        <h2 style="color: #fff; font-weight: 300;">Ritish ❤️ Vatsa</h2>
+        <p style="font-size: 1.1rem;">
+            Vatsa,<br><br>
+            You make my world brighter and my life more beautiful every single day. 
+            I’m so grateful for <strong>us</strong> and every moment we share.<br><br>
+            Forever yours,<br>
+            <strong>Ritish ❤️</strong>
+        </p>
+        <button onclick="finalSurprise()">I love you! 💖</button>
+    </div>
 </div>
 
 <audio id="music" loop>
-  <source src="muddada.mp3" type="audio/mpeg">
+    <source src="muddada.mp3" type="audio/mpeg">
 </audio>
 
-<div class="floating-bg">
-  <script>
-    const symbols = ['❤️', '💖', '💗'];
-    for(let i=0; i<15; i++) {
-      document.write(`<span style="left:${Math.random()*100}%; animation-delay:${Math.random()*5}s;">${symbols[Math.floor(Math.random()*3)]}</span>`);
-    }
-  </script>
-</div>
+<div class="floating-bg" id="bg-elements"></div>
 
 <script>
-// Moving button logic
-function moveButton() {
-    const btn = document.getElementById('no-btn');
-    const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-    const y = Math.random() * (window.innerHeight - btn.offsetHeight);
-    btn.style.position = 'fixed';
-    btn.style.left = x + 'px';
-    btn.style.top = y + 'px';
-}
+    // Create floating hearts
+    const bg = document.getElementById('bg-elements');
+    const symbols = ['❤️', '💖', '💗', '✨', '🌹'];
+    for(let i=0; i<20; i++) {
+        const span = document.createElement('span');
+        span.innerText = symbols[Math.floor(Math.random()*symbols.length)];
+        span.style.left = Math.random() * 100 + '%';
+        span.style.animationDelay = Math.random() * 7 + 's';
+        span.style.fontSize = (Math.random() * 20 + 10) + 'px';
+        bg.appendChild(span);
+    }
 
-// Transition and Audio Play logic
-function openLetter() {
-    document.getElementById("page1").style.display = "none";
-    document.getElementById("page2").style.display = "block";
-    
-   
-    const audio = document.getElementById("music");
-    // Play song at 90% volume
-    audio.volume = 0.9;
-    audio.play().catch(e => console.log("Music play blocked by browser settings"));
-}
+    let noScale = 1;
+    let yesScale = 1;
+
+    function moveButton() {
+        const btn = document.getElementById('no-btn');
+        const yesBtn = document.getElementById('yes-btn');
+        
+        // Make "No" smaller and "Yes" bigger each time
+        noScale -= 0.1;
+        yesScale += 0.1;
+        if (noScale < 0.3) noScale = 0.3; // Don't let it disappear completely
+        
+        btn.style.transform = `scale(${noScale})`;
+        yesBtn.style.transform = `scale(${yesScale})`;
+
+        // Random movement
+        const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+        const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+        btn.style.position = 'fixed';
+        btn.style.left = x + 'px';
+        btn.style.top = y + 'px';
+    }
+
+    function openLetter() {
+        document.getElementById("page1").style.display = "none";
+        document.getElementById("page2").style.display = "block";
+        
+        // Confetti effect!
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#ff4d6d', '#ff2f68', '#ffffff']
+        });
+
+        const audio = document.getElementById("music");
+        audio.volume = 0.5;
+        audio.play().catch(e => console.log("Audio requires user interaction first."));
+    }
+
+    function finalSurprise() {
+        confetti({
+            particleCount: 200,
+            spread: 160,
+            colors: ['#ff2f68', '#ff9aa2']
+        });
+        alert('Yay! Best Valentine ever! I love you, Vatsa! ❤️');
+    }
 </script>
 
 </body>

@@ -9,7 +9,7 @@
 <style>
   :root {
     --pink-gradient: linear-gradient(135deg, #ff4d6d, #ff9aa2);
-    --glass: rgba(255, 255, 255, 0.2);
+    --glass: rgba(255, 255, 255, 0.25);
     --hot-pink: #ff2f68;
   }
 
@@ -44,19 +44,11 @@
     font-family: 'Dancing Script', cursive;
     font-size: 2.5rem;
     margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
   }
 
-  h2 {
-    font-size: 1.3rem;
-    font-weight: 300;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-  }
-
-  .heart {
+  .heart-icon {
     font-size: 4rem;
-    margin: 20px 0;
+    margin: 15px 0;
     display: inline-block;
     animation: beat 1.2s infinite;
   }
@@ -66,45 +58,44 @@
     50% { transform: scale(1.2); }
   }
 
+  .btn-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
   button {
     background: var(--hot-pink);
     border: none;
     color: white;
-    padding: 14px 28px;
-    font-size: 1rem;
+    padding: 12px 30px;
+    font-size: 1.1rem;
     font-weight: 600;
     border-radius: 50px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    margin-top: 10px;
+    transition: transform 0.2s ease, background 0.3s;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
   }
 
-  button:hover {
-    transform: translateY(-3px);
-    background: #ff1744;
-    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
-  }
-
-  /* Transition Logic */
-  #page1 {
-    animation: fadeIn 1s ease;
+  /* Styling for the moving No button */
+  #no-btn {
+    background: #f0f0f0;
+    color: #666;
+    position: relative; /* Will change to absolute/fixed via JS */
+    transition: all 0.2s ease;
+    z-index: 999;
   }
 
   .letter {
     display: none;
     line-height: 1.8;
-    font-size: 1.05rem;
-    animation: slideUp 0.8s ease-out;
+    animation: fadeIn 0.8s ease;
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(30px); }
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
@@ -112,15 +103,14 @@
   .floating span {
     position: absolute;
     bottom: -50px;
-    font-size: 24px;
     animation: float 7s linear infinite;
-    opacity: 0.7;
+    opacity: 0.6;
     pointer-events: none;
   }
 
   @keyframes float {
-    0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
-    100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-120vh) rotate(360deg); }
   }
 </style>
 </head>
@@ -131,17 +121,18 @@
   <div id="page1">
     <h1>Happy Valentine’s Day</h1>
     <h2>Ritish 💕 Vatsa</h2>
-    <div class="heart">💖</div>
-    <br>
-    <button onclick="openLetter()">Open my heart 💌</button>
+    <div class="heart-icon">💖</div>
+    <div class="btn-container">
+      <button onclick="openLetter()">Open my heart 💌</button>
+      <button id="no-btn" onmouseover="moveNoButton()" onclick="moveNoButton()">No</button>
+    </div>
+    <p style="font-size: 0.8rem; margin-top: 15px; opacity: 0.8;">"No" seems a bit shy 😈</p>
   </div>
 
   <div class="letter" id="page2">
     <p>
       Vatsa,<br><br>
-      You make my world brighter, my heart warmer,  
-      and my life more beautiful every single day 💕<br><br>
-      I’m grateful for you, for us, and for all the moments we share.<br><br>
+      You make my world brighter and my life more beautiful every single day 💕<br><br>
       <strong>Will you be my Valentine? 🌹</strong><br><br>
       Forever yours,<br>
       <strong>Ritish ❤️</strong>
@@ -155,26 +146,33 @@
 </audio>
 
 <div class="floating">
-  <span style="left:5%; animation-delay:0s;">❤️</span>
-  <span style="left:20%; animation-delay:2s;">💗</span>
-  <span style="left:35%; animation-delay:4s;">💖</span>
-  <span style="left:50%; animation-delay:1s;">❤️</span>
-  <span style="left:65%; animation-delay:3s;">💗</span>
-  <span style="left:80%; animation-delay:5s;">💖</span>
-  <span style="left:95%; animation-delay:2s;">❤️</span>
+  <script>
+    // Create background hearts
+    const colors = ['❤️', '💖', '💗'];
+    for(let i=0; i<15; i++) {
+      document.write(`<span style="left:${Math.random()*100}%; animation-delay:${Math.random()*5}s;">${colors[Math.floor(Math.random()*3)]}</span>`);
+    }
+  </script>
 </div>
 
 <script>
+function moveNoButton() {
+  const btn = document.getElementById('no-btn');
+  
+  // Calculate random position within the viewport
+  // We subtract button width/height so it doesn't go off screen
+  const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+  const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+  
+  btn.style.position = 'fixed';
+  btn.style.left = x + 'px';
+  btn.style.top = y + 'px';
+}
+
 function openLetter() {
-  // Hide Page 1 and Show Page 2
   document.getElementById("page1").style.display = "none";
   document.getElementById("page2").style.display = "block";
-  
-  // Play music (browsers require user interaction, so this works on click)
-  const audio = document.getElementById("music");
-  audio.play().catch(error => {
-    console.log("Audio playback failed: ", error);
-  });
+  document.getElementById("music").play().catch(() => {});
 }
 
 function sayYes() {

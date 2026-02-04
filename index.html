@@ -1,232 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Valentine’s Day ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<meta charset="UTF-8">
+<title>Happy Valentine’s Day ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --primary-pink: #ff4d6d;
-            --secondary-pink: #ff85a1;
-            --glass-white: rgba(255, 255, 255, 0.2);
-        }
+<style>
+  :root {
+    --pink-gradient: linear-gradient(135deg, #ff4d6d, #ff9aa2);
+    --glass: rgba(255, 255, 255, 0.2);
+    --hot-pink: #ff2f68;
+  }
 
-        body {
-            margin: 0;
-            height: 100vh;
-            background: linear-gradient(135deg, #ff4d6d, #ff9aa2, #ffb7b2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-        }
+  body {
+    margin: 0;
+    height: 100vh;
+    background: var(--pink-gradient);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+  }
 
-        .card {
-            background: var(--glass-white);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 25px;
-            padding: 40px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            color: white;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            animation: fadeIn 1.5s ease-out;
-            position: relative;
-            z-index: 10;
-        }
+  .card {
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 25px;
+    padding: 40px;
+    width: 85%;
+    max-width: 380px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    position: relative;
+    z-index: 10;
+  }
 
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.8rem;
-            margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
+  h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
 
-        h2 {
-            font-weight: 300;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-            opacity: 0.9;
-        }
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 300;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
 
-        .heart-main {
-            font-size: 4rem;
-            animation: beat 1s infinite alternate;
-            margin: 20px 0;
-            display: inline-block;
-        }
+  .heart {
+    font-size: 4rem;
+    margin: 20px 0;
+    display: inline-block;
+    animation: beat 1.2s infinite;
+  }
 
-        @keyframes beat {
-            to { transform: scale(1.15); filter: drop-shadow(0 0 10px #fff); }
-        }
+  @keyframes beat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
 
-        .btn-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
+  button {
+    background: var(--hot-pink);
+    border: none;
+    color: white;
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    margin-top: 10px;
+  }
 
-        button {
-            background: white;
-            border: none;
-            color: var(--primary-pink);
-            padding: 12px 28px;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
+  button:hover {
+    transform: translateY(-3px);
+    background: #ff1744;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+  }
 
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            background: #fff0f5;
-        }
+  /* Transition Logic */
+  #page1 {
+    animation: fadeIn 1s ease;
+  }
 
-        #no-btn {
-            background: transparent;
-            border: 2px solid white;
-            color: white;
-            position: relative;
-        }
+  .letter {
+    display: none;
+    line-height: 1.8;
+    font-size: 1.05rem;
+    animation: slideUp 0.8s ease-out;
+  }
 
-        .letter {
-            display: none;
-            margin-top: 25px;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            animation: slideUp 1s ease forwards;
-        }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+  /* Floating background hearts */
+  .floating span {
+    position: absolute;
+    bottom: -50px;
+    font-size: 24px;
+    animation: float 7s linear infinite;
+    opacity: 0.7;
+    pointer-events: none;
+  }
 
-        /* Background floating hearts */
-        .floating-heart {
-            position: absolute;
-            bottom: -50px;
-            color: white;
-            opacity: 0.6;
-            animation: float Up 8s linear infinite;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
-            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
-        }
-    </style>
+  @keyframes float {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+    100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+  }
+</style>
 </head>
+
 <body>
 
 <div class="card">
-    <div id="main-content">
-        <h1>Happy Valentine’s Day</h1>
-        <h2>Ritish 💕 Vatsa</h2>
-        <div class="heart-main">💖</div>
-        <p>I have a secret to tell you...</p>
-        <button onclick="openLetter()">Open My Heart 💌</button>
-    </div>
+  <div id="page1">
+    <h1>Happy Valentine’s Day</h1>
+    <h2>Ritish 💕 Vatsa</h2>
+    <div class="heart">💖</div>
+    <br>
+    <button onclick="openLetter()">Open my heart 💌</button>
+  </div>
 
-    <div class="letter" id="letter">
-        <p>
-            Vatsa,<br>
-            You make my world brighter, my heart warmer, 
-            and my life more beautiful every single day. 💕<br><br>
-            <strong>Will you be my Valentine? 🌹</strong>
-        </p>
-        <div class="btn-group">
-            <button onclick="sayYes()">YES! 💖</button>
-            <button id="no-btn" onmouseover="moveButton()">No</button>
-        </div>
-    </div>
+  <div class="letter" id="page2">
+    <p>
+      Vatsa,<br><br>
+      You make my world brighter, my heart warmer,  
+      and my life more beautiful every single day 💕<br><br>
+      I’m grateful for you, for us, and for all the moments we share.<br><br>
+      <strong>Will you be my Valentine? 🌹</strong><br><br>
+      Forever yours,<br>
+      <strong>Ritish ❤️</strong>
+    </p>
+    <button onclick="sayYes()">Yes 💖</button>
+  </div>
 </div>
 
 <audio id="music" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2023/02/28/audio_6b6ed9628f.mp3?filename=romantic-piano-144998.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/download/audio/2023/02/28/audio_6b6ed9628f.mp3?filename=romantic-piano-144998.mp3" type="audio/mpeg">
 </audio>
 
+<div class="floating">
+  <span style="left:5%; animation-delay:0s;">❤️</span>
+  <span style="left:20%; animation-delay:2s;">💗</span>
+  <span style="left:35%; animation-delay:4s;">💖</span>
+  <span style="left:50%; animation-delay:1s;">❤️</span>
+  <span style="left:65%; animation-delay:3s;">💗</span>
+  <span style="left:80%; animation-delay:5s;">💖</span>
+  <span style="left:95%; animation-delay:2s;">❤️</span>
+</div>
+
 <script>
-    function openLetter() {
-        document.getElementById("main-content").style.display = "none";
-        document.getElementById("letter").style.display = "block";
-        const audio = document.getElementById("music");
-        audio.play().catch(e => console.log("Audio play deferred"));
-    }
+function openLetter() {
+  // Hide Page 1 and Show Page 2
+  document.getElementById("page1").style.display = "none";
+  document.getElementById("page2").style.display = "block";
+  
+  // Play music (browsers require user interaction, so this works on click)
+  const audio = document.getElementById("music");
+  audio.play().catch(error => {
+    console.log("Audio playback failed: ", error);
+  });
+}
 
-    function moveButton() {
-        const x = Math.random() * (window.innerWidth - 100);
-        const y = Math.random() * (window.innerHeight - 50);
-        const btn = document.getElementById("no-btn");
-        btn.style.position = 'fixed';
-        btn.style.left = x + 'px';
-        btn.style.top = y + 'px';
-    }
-
-    function sayYes() {
-        // Confetti effect
-        const duration = 5 * 1000;
-        const animationEnd = Date.now() + duration;
-        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-
-        function randomInRange(min, max) {
-            return Math.random() * (max - min) + min;
-        }
-
-        const interval = setInterval(function() {
-            const timeLeft = animationEnd - Date.now();
-            if (timeLeft <= 0) return clearInterval(interval);
-
-            const particleCount = 50 * (timeLeft / duration);
-            confetti(Object.assign({}, defaults, { 
-                particleCount, 
-                origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
-                colors: ['#ff4d6d', '#ff85a1', '#ffffff']
-            }));
-            confetti(Object.assign({}, defaults, { 
-                particleCount, 
-                origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
-                colors: ['#ff4d6d', '#ff85a1', '#ffffff']
-            }));
-        }, 250);
-
-        alert("Yayyy! Best decision ever! ❤️ Happy Valentine’s Day, Vatsa!");
-    }
-
-    // Create background floating hearts
-    function createHearts() {
-        const container = document.body;
-        const heartEmojis = ['❤️', '💖', '💗', '💓'];
-        for (let i = 0; i < 15; i++) {
-            const heart = document.createElement('div');
-            heart.className = 'floating-heart';
-            heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
-            heart.style.animationDelay = Math.random() * 5 + 's';
-            heart.style.fontSize = Math.random() * 15 + 15 + 'px';
-            container.appendChild(heart);
-        }
-    }
-    createHearts();
+function sayYes() {
+  alert("Yayyy 💕 Happy Valentine’s Day, Vatsa! ❤️");
+}
 </script>
 
 </body>

@@ -49,7 +49,7 @@
   h1 {
     font-family: 'Dancing Script', cursive;
     font-size: 2.2rem;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 
   .btn-container {
@@ -117,7 +117,7 @@
       <button onclick="openLetter()">Yes 💖</button>
       <button id="no-btn" onmouseover="moveButton()" onclick="moveButton()">No</button>
     </div>
-    <p style="font-size: 0.5rem; margin-top: 15px; opacity: 0.5;">"No" seems a bit shy 😈</p>
+    <p style="font-size: 0.8rem; margin-top: 15px; opacity: 0.8;">"No" seems a bit shy 😈</p>
   </div>
 
   <div class="letter" id="page2">
@@ -135,7 +135,7 @@
 </div>
 
 <audio id="music" loop>
-  <source src="https://youtu.be/Tidel6c8pv8?si=ZKQdoo2jmpON5A1b">
+  <source src="muddada1.mp3" type="audio/mpeg">
 </audio>
 
 <div class="floating-bg">
@@ -148,22 +148,25 @@
 </div>
 
 <script>
+// Moving button logic
 function moveButton() {
     const btn = document.getElementById('no-btn');
-    
-    // Calculate random position while keeping the button mostly on screen
     const x = Math.random() * (window.innerWidth - btn.offsetWidth);
     const y = Math.random() * (window.innerHeight - btn.offsetHeight);
-
     btn.style.position = 'fixed';
     btn.style.left = x + 'px';
     btn.style.top = y + 'px';
 }
 
+// Transition and Audio Play logic
 function openLetter() {
     document.getElementById("page1").style.display = "none";
     document.getElementById("page2").style.display = "block";
-    document.getElementById("music").play().catch(() => {});
+    
+    const audio = document.getElementById("music");
+    // Play song at 60% volume
+    audio.volume = 0.6;
+    audio.play().catch(e => console.log("Music play blocked by browser settings"));
 }
 </script>
 

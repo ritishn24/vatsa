@@ -164,8 +164,12 @@ function openLetter() {
     document.getElementById("page2").style.display = "block";
     
     const audio = document.getElementById("music");
-    // Play song at 60% volume
-    audio.volume = 0.6;
+    // This is the line that actually starts the sound
+    audio.play().catch(e => console.log("Playback blocked or file not found"));
+}
+    const audio = document.getElementById("music");
+    // Play song at 90% volume
+    audio.volume = 0.9;
     audio.play().catch(e => console.log("Music play blocked by browser settings"));
 }
 </script>

@@ -29,78 +29,95 @@
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-radius: 25px;
-    padding: 40px;
+    padding: 30px;
     width: 85%;
-    max-width: 380px;
+    max-width: 360px;
     text-align: center;
     color: white;
     box-shadow: 0 15px 45px rgba(0,0,0,0.2);
     border: 1px solid rgba(255,255,255,0.3);
     position: relative;
     z-index: 10;
+    transition: all 0.5s ease;
   }
 
   h1 {
     font-family: 'Dancing Script', cursive;
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+    font-size: 2.2rem;
+    margin-bottom: 5px;
   }
 
-  .heart-icon {
-    font-size: 4rem;
-    margin: 15px 0;
-    display: inline-block;
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 300;
+    margin-bottom: 15px;
+  }
+
+  .cat-img {
+    width: 150px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+  }
+
+  .heart-main {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
     animation: beat 1.2s infinite;
+    display: inline-block;
   }
 
   @keyframes beat {
     0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.2); }
+    50% { transform: scale(1.15); }
   }
 
   .btn-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    margin-top: 20px;
+    gap: 12px;
+    margin-top: 10px;
   }
 
   button {
     background: var(--hot-pink);
     border: none;
     color: white;
-    padding: 12px 30px;
-    font-size: 1.1rem;
+    padding: 12px 28px;
+    font-size: 1rem;
     font-weight: 600;
     border-radius: 50px;
     cursor: pointer;
-    transition: transform 0.2s ease, background 0.3s;
-    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   }
 
-  /* Styling for the moving No button */
   #no-btn {
     background: #f0f0f0;
-    color: #666;
-    position: relative; /* Will change to absolute/fixed via JS */
-    transition: all 0.2s ease;
-    z-index: 999;
+    color: #444;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 100;
   }
 
   .letter {
     display: none;
-    line-height: 1.8;
-    animation: fadeIn 0.8s ease;
+    line-height: 1.6;
+    animation: slideUp 0.8s ease;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Floating background hearts */
-  .floating span {
+  .shy-text {
+    font-size: 0.8rem;
+    margin-top: 10px;
+    opacity: 0.8;
+  }
+
+  /* Floating background symbols */
+  .floating-bg span {
     position: absolute;
     bottom: -50px;
     animation: float 7s linear infinite;
@@ -117,27 +134,31 @@
 
 <body>
 
-<div class="card">
+<div class="card" id="mainCard">
   <div id="page1">
-    <h1>Happy Valentine’s Day</h1>
-    <h2>Ritish 💕 Vatsa</h2>
-    <div class="heart-icon">💖</div>
+    <img src="https://media.giphy.com/media/KmxmoHUGPDjfQXqGgv/giphy.gif" alt="Cute Cats" class="cat-img">
+    <h1>Hey Vatsa...</h1>
+    <p>Will you be my Valentine?</p>
+    
     <div class="btn-container">
-      <button onclick="openLetter()">Open my heart 💌</button>
-      <button id="no-btn" onmouseover="moveNoButton()" onclick="moveNoButton()">No</button>
+      <button onclick="openLetter()">Yes 💖</button>
+      <button id="no-btn" onmouseover="moveButton()" onclick="moveButton()">No</button>
     </div>
-    <p style="font-size: 0.8rem; margin-top: 15px; opacity: 0.8;">"No" seems a bit shy 😈</p>
+    <p class="shy-text">"No" seems a bit shy 😈</p>
   </div>
 
   <div class="letter" id="page2">
+    <h1>Happy Valentine’s Day</h1>
+    <h2>Ritish 💕 Vatsa</h2>
+    <div class="heart-main">💖</div>
     <p>
       Vatsa,<br><br>
       You make my world brighter and my life more beautiful every single day 💕<br><br>
-      <strong>Will you be my Valentine? 🌹</strong><br><br>
+      I’m grateful for you, for us, and for all the moments we share.<br><br>
       Forever yours,<br>
       <strong>Ritish ❤️</strong>
     </p>
-    <button onclick="sayYes()">Yes 💖</button>
+    <button onclick="celebrate()">Yay! 💖</button>
   </div>
 </div>
 
@@ -145,38 +166,45 @@
   <source src="https://cdn.pixabay.com/download/audio/2023/02/28/audio_6b6ed9628f.mp3?filename=romantic-piano-144998.mp3" type="audio/mpeg">
 </audio>
 
-<div class="floating">
+<div class="floating-bg">
   <script>
-    // Create background hearts
-    const colors = ['❤️', '💖', '💗'];
+    const symbols = ['❤️', '💖', '💗', '✨'];
     for(let i=0; i<15; i++) {
-      document.write(`<span style="left:${Math.random()*100}%; animation-delay:${Math.random()*5}s;">${colors[Math.floor(Math.random()*3)]}</span>`);
+      document.write(`<span style="left:${Math.random()*100}%; animation-delay:${Math.random()*5}s; font-size:${Math.random()*15+15}px;">${symbols[Math.floor(Math.random()*4)]}</span>`);
     }
   </script>
 </div>
 
 <script>
-function moveNoButton() {
-  const btn = document.getElementById('no-btn');
-  
-  // Calculate random position within the viewport
-  // We subtract button width/height so it doesn't go off screen
-  const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-  const y = Math.random() * (window.innerHeight - btn.offsetHeight);
-  
-  btn.style.position = 'fixed';
-  btn.style.left = x + 'px';
-  btn.style.top = y + 'px';
+function moveButton() {
+    const btn = document.getElementById('no-btn');
+    const card = document.getElementById('mainCard');
+    
+    // Limits the movement to roughly stay near the card area for better UX
+    const maxWidth = window.innerWidth - btn.offsetWidth;
+    const maxHeight = window.innerHeight - btn.offsetHeight;
+
+    const randomX = Math.floor(Math.random() * maxWidth);
+    const randomY = Math.floor(Math.random() * maxHeight);
+
+    btn.style.position = 'fixed';
+    btn.style.left = randomX + 'px';
+    btn.style.top = randomY + 'px';
 }
 
 function openLetter() {
-  document.getElementById("page1").style.display = "none";
-  document.getElementById("page2").style.display = "block";
-  document.getElementById("music").play().catch(() => {});
+    document.getElementById("page1").style.display = "none";
+    document.getElementById("page2").style.display = "block";
+    
+    // Play the music
+    const audio = document.getElementById("music");
+    audio.play().catch(() => {
+        console.log("Audio play blocked by browser. This is normal until user interacts.");
+    });
 }
 
-function sayYes() {
-  alert("Yayyy 💕 Happy Valentine’s Day, Vatsa! ❤️");
+function celebrate() {
+    alert("Best Valentine Ever! ❤️ I love you Vatsa!");
 }
 </script>
 
